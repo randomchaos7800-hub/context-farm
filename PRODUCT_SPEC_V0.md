@@ -81,6 +81,20 @@ They need a system that can:
 
 Context Farm is a domain knowledge compiler for that job.
 
+## Practical Moat
+
+The durable differentiator is not "we also extract structure."
+
+That alone is not a moat. Everyone in this category is moving toward richer extraction.
+
+The stronger wedge is:
+- local-first deployment
+- no-data-leaves-your-building operation
+- explicit constraint/exception handling for operational workflows
+- one shared context layer for both humans and agent fleets
+
+For small teams with compliance sensitivity, internal process sensitivity, or strong preference for self-hosting, this matters more than generic AI search positioning.
+
 ---
 
 ## Product Positioning
@@ -206,6 +220,10 @@ The domain owner needs a lightweight console for:
 - updating authority rules
 
 Without this, trust will collapse.
+
+Important v0 constraint:
+- governance must not require row-by-row approval of every important object
+- review has to be batched and impact-prioritized or the product will stall
 
 ---
 

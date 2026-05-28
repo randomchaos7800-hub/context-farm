@@ -121,6 +121,37 @@ The MVP is successful if it can demonstrate:
 
 ## MVP Milestones
 
+## Milestone 0: Demo Domain First
+
+### Goal
+
+Prove the user interaction before automating the full pipeline.
+
+### Deliverables
+
+- choose one primary demo domain
+- seed domain schema manually
+- create a small approved structured object set by hand or semi-manually
+- implement a minimal retrieval path over that object set
+- implement a minimal briefing flow
+
+### Why first
+
+If the demo interaction is weak, a larger pipeline will not rescue the product.
+
+This milestone is meant to validate:
+- the questions users actually ask
+- the shape of useful answers
+- whether briefings feel valuable
+- whether constraints and exceptions are surfaced clearly
+
+### Exit criteria
+
+- one realistic demo can answer real domain questions end to end
+- the product value is obvious before full extraction automation exists
+
+---
+
 ## Milestone 1: Structured Knowledge Core
 
 ### Goal
@@ -257,7 +288,7 @@ Demonstrate that the product can do more than search. It should generate concise
 
 ### Goal
 
-Package the MVP so progress is visible and credible.
+Harden the already-proven demo path into a repeatable showcase.
 
 ### Deliverables
 
@@ -280,6 +311,7 @@ Secondary:
 
 - a realistic demo can be run end to end by a human operator
 - the product value is obvious in under 10 minutes
+- the automated pipeline materially improves the already-proven manual demo path
 
 ---
 
@@ -307,15 +339,16 @@ This matters because the long-term vision includes both small teams and multi-ag
 
 Recommended order:
 
-1. Structured Knowledge Core
-2. Extraction Pass
-3. Governance Layer
-4. Fact-Aware Retrieval
-5. Briefing Workflow
-6. Demo-Ready Workflow
-7. Agent Integration Proof
+1. Demo Domain First
+2. Structured Knowledge Core
+3. Extraction Pass
+4. Governance Layer
+5. Fact-Aware Retrieval
+6. Briefing Workflow
+7. Demo-Ready Workflow
+8. Agent Integration Proof
 
-This order matters because retrieval and demo quality will be weak if the structured layer and governance are not in place first.
+This order matters because the demo interaction needs to be proven before a lot of automation work is justified.
 
 ---
 
@@ -324,12 +357,13 @@ This order matters because retrieval and demo quality will be weak if the struct
 ## Phase A: Core System
 
 Focus:
+- demo domain
 - schema
 - SQLite store
 - extraction pass
 
 Success:
-- typed knowledge exists and persists
+- typed knowledge exists, persists, and already powers one useful demo interaction
 
 ## Phase B: Trust Layer
 
@@ -368,6 +402,8 @@ Success:
 The MVP should generate visible evidence of progress.
 
 Track:
+- demo question success rate
+- demo answer includes rule + exception + provenance
 - ingestion runs completed
 - knowledge objects extracted per domain
 - % of high-impact objects reviewed
@@ -397,10 +433,10 @@ The main risk is over-expanding before the core workflow is defensible.
 
 ## Recommended Immediate Next Steps
 
-1. Define the structured knowledge object schema in concrete file and table form
-2. Implement the SQLite store
-3. Design the extraction pass for facts, constraints, exceptions, and decisions
-4. Build one demo domain all the way through before generalizing
+1. Build one demo domain all the way through before generalizing
+2. Define the structured knowledge object schema in concrete file and table form
+3. Implement the SQLite store
+4. Design the extraction pass for facts, constraints, exceptions, and decisions
 
 That is the shortest path to real progress.
 

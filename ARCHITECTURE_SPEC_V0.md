@@ -210,6 +210,14 @@ The compile layer should not be the final truth model.
 
 It is an intermediate and human-facing representation. The structured fact layer below is where operational retrieval should increasingly anchor.
 
+For v0, the wiki layer has four explicit jobs:
+- human-readable audit trail
+- intermediate normalization before structured extraction
+- fallback retrieval surface while structured extraction is incomplete
+- debugging surface for extraction failures
+
+If it cannot justify those jobs in the product, it should be reduced later rather than preserved by habit.
+
 ---
 
 ## 3. Domain Model Layer
@@ -388,6 +396,10 @@ Exists today:
 - briefing assembly logic
 - status/authority-aware filtering
 
+Important sequencing note:
+- retrieval and briefing should first be proven on a manually seeded demo object set
+- full automation should follow after the demo interaction is validated
+
 ### Retrieval policy
 
 High-impact answers should prioritize:
@@ -427,6 +439,10 @@ Not every item needs review. Only:
 - decisions
 - contradictions
 - low-confidence extractions
+
+Governance load must be constrained.
+
+If the system routes every meaningful extracted item into review, the target user will abandon it. The review queue must batch related objects and auto-approve low-risk cases where possible.
 
 ### Required governance states
 

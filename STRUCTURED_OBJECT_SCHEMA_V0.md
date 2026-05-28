@@ -281,6 +281,18 @@ Suggested default classes:
 
 These should remain configurable per domain.
 
+Source records should also carry:
+
+- `authority_assignment_method`
+
+Allowed values:
+
+- `declared`
+- `heuristic`
+- `inferred`
+
+This distinction matters because inferred authority should not be treated as equivalent to operator-declared authority.
+
 ---
 
 ## Review Priority

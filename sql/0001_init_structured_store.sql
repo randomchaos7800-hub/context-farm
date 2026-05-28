@@ -24,6 +24,9 @@ CREATE TABLE IF NOT EXISTS sources (
     raw_path TEXT NOT NULL DEFAULT '',
     checksum TEXT NOT NULL DEFAULT '',
     authority_class TEXT NOT NULL DEFAULT 'unknown',
+    authority_assignment_method TEXT NOT NULL DEFAULT 'declared' CHECK (
+        authority_assignment_method IN ('declared', 'heuristic', 'inferred')
+    ),
     ingested_by TEXT NOT NULL DEFAULT '',
     ingested_at TEXT NOT NULL,
     metadata_json TEXT NOT NULL DEFAULT '{}',
