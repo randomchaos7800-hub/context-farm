@@ -86,6 +86,34 @@
       "predicted_title": "",
       "predicted_statement": "",
       "predicted_review_priority": "low"
+    },
+    {
+      "id": "sd-013",
+      "predicted_type": "Procedure",
+      "predicted_title": "Emergency dispatch flow",
+      "predicted_statement": "Emergency dispatch requires classification of the incident and a technician availability check.",
+      "predicted_review_priority": "medium"
+    },
+    {
+      "id": "sd-014",
+      "predicted_type": "Exception",
+      "predicted_title": "VIP client deposit waiver",
+      "predicted_statement": "VIP maintenance clients can usually skip the standard deposit if the dispatcher verifies the account and notes the reason.",
+      "predicted_review_priority": "high"
+    },
+    {
+      "id": "sd-015",
+      "predicted_type": "Constraint",
+      "predicted_title": "After-hours approval required",
+      "predicted_statement": "After-hours scheduling requires operations lead approval except for emergency priority incidents.",
+      "predicted_review_priority": "high"
+    },
+    {
+      "id": "sd-016",
+      "predicted_type": "Constraint",
+      "predicted_title": "After-hours approval required",
+      "predicted_statement": "After-hours scheduling requires operations lead approval except for emergency priority incidents.",
+      "predicted_review_priority": "high"
     }
   ]
 }

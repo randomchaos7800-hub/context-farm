@@ -124,7 +124,43 @@ What is being specified and built next:
 - first demo domain seed: [examples/domain-service-dispatch.json](./examples/domain-service-dispatch.json)
 - manual demo object set: [examples/service-dispatch-manual-objects.json](./examples/service-dispatch-manual-objects.json)
 - prototype scripts: [scripts/build_demo_db.py](./scripts/build_demo_db.py), [scripts/query_demo.py](./scripts/query_demo.py), [scripts/brief_demo.py](./scripts/brief_demo.py)
-- extraction gold set, baseline, and evaluator: [examples/service-dispatch-extraction-gold.json](./examples/service-dispatch-extraction-gold.json), [examples/service-dispatch-extraction-predictions.manual-baseline.json](./examples/service-dispatch-extraction-predictions.manual-baseline.json), [scripts/generate_manual_baseline_predictions.py](./scripts/generate_manual_baseline_predictions.py), [scripts/eval_extraction.py](./scripts/eval_extraction.py)
+- extraction gold set, prediction artifacts, and evaluator: [examples/service-dispatch-extraction-gold.json](./examples/service-dispatch-extraction-gold.json), [examples/service-dispatch-extraction-predictions.manual-baseline.json](./examples/service-dispatch-extraction-predictions.manual-baseline.json), [examples/service-dispatch-extraction-predictions.llm-staged.json](./examples/service-dispatch-extraction-predictions.llm-staged.json), [examples/service-dispatch-extraction-predictions.llm-staged-v1.json](./examples/service-dispatch-extraction-predictions.llm-staged-v1.json), [scripts/generate_manual_baseline_predictions.py](./scripts/generate_manual_baseline_predictions.py), [scripts/extract_staged.py](./scripts/extract_staged.py), [scripts/eval_extraction.py](./scripts/eval_extraction.py)
+
+## Extraction Benchmark
+
+The repo now has three benchmark layers for the `service-dispatch` extraction set:
+
+- `manual-object-overlap-baseline`: matches gold examples against the hand-authored demo object set. Useful as a ceiling on what the manual object inventory already encodes, but not a fair extraction score.
+- `llm-staged-extractor-v0`: first cold-from-text staged extraction pass.
+- `llm-staged-extractor-v1`: same staged pass with stricter application-side disambiguation guidance for `Constraint`/`Procedure` and `Constraint`/`Decision`.
+
+Current benchmark set:
+
+- domain: `service-dispatch`
+- labels: `Constraint`, `Exception`, `Procedure`, `Fact`, `Decision`, `Entity`, `Reject`
+- examples: `16`
+
+Current checked-in results on `service-dispatch-extraction-gold-v0`:
+
+- manual baseline: `81.2%` type, `87.5%` priority, `62.5%` graded statement
+- staged v0: `56.2%` type, `81.2%` priority, `93.8%` graded statement
+- staged v1: `75.0%` type, `87.5%` priority, `87.5%` graded statement
+
+Run the benchmark end to end:
+
+```bash
+cd /home/dino/context-farm-repo
+scripts/run_extraction_benchmark.sh
+```
+
+That writes stable local artifacts under `artifacts/extraction-benchmarks/latest/`:
+
+- `manual-baseline.predictions.json`
+- `manual-baseline.eval.json`
+- `llm-staged.predictions.json`
+- `llm-staged.eval.json`
+
+The checked-in `examples/*.json` prediction files are reference artifacts, not the canonical output location for repeated local runs.
 
 ## Intended Users
 

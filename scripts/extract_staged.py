@@ -78,15 +78,31 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def call_model(base_url: str, model: str, span: str, source_type: str, authority_class: str, timeout: float) -> str:
-    user_prompt = (
-        f"{TYPE_GUIDE}\n\n"
-        f"{DISAMBIGUATION}\n\n"
-        f"{INSTRUCTIONS}\n\n"
-        f"SOURCE TYPE: {source_type}\n"
-        f"AUTHORITY CLASS: {authority_class}\n"
-        f"SPAN: {span}"
+def build_user_prompt(span: str, source_type: str, authority_class: str, prompt_version: str) -> str:
+    parts = [TYPE_GUIDE]
+    if prompt_version == "v1":
+        parts.append(DISAMBIGUATION)
+    parts.extend(
+        [
+            INSTRUCTIONS,
+            f"SOURCE TYPE: {source_type}",
+            f"AUTHORITY CLASS: {authority_class}",
+            f"SPAN: {span}",
+        ]
     )
+    return "\n\n".join(parts)
+
+
+def call_model(
+    base_url: str,
+    model: str,
+    span: str,
+    source_type: str,
+    authority_class: str,
+    timeout: float,
+    prompt_version: str,
+) -> str:
+    user_prompt = build_user_prompt(span, source_type, authority_class, prompt_version)
     body = {
         "model": model,
         "temperature": 0.0,
@@ -114,7 +130,7 @@ def parse_model_json(raw: str) -> dict:
     return json.loads(match.group(0))
 
 
-def predict_item(item: dict, base_url: str, model: str, timeout: float) -> dict:
+def predict_item(item: dict, base_url: str, model: str, timeout: float, prompt_version: str) -> dict:
     raw = call_model(
         base_url,
         model,
@@ -122,6 +138,7 @@ def predict_item(item: dict, base_url: str, model: str, timeout: float) -> dict:
         item.get("source_type", "unknown"),
         item.get("authority_class", "unknown"),
         timeout,
+        prompt_version,
     )
     parsed = parse_model_json(raw)
 
@@ -155,6 +172,12 @@ def main() -> None:
     parser.add_argument("--base-url", default="http://100.120.50.35:8010/v1", help="OpenAI-compatible base URL")
     parser.add_argument("--model", default="local")
     parser.add_argument("--pipeline-name", default="llm-staged-extractor-v0")
+    parser.add_argument(
+        "--prompt-version",
+        choices=("v0", "v1"),
+        default="v1",
+        help="Prompt contract version. v1 adds explicit disambiguation guidance.",
+    )
     parser.add_argument("--timeout", type=float, default=120.0)
     args = parser.parse_args()
 
@@ -162,9 +185,9 @@ def main() -> None:
 
     predictions = []
     for item in gold["items"]:
-        pred = predict_item(item, args.base_url, args.model, args.timeout)
+        pred = predict_item(item, args.base_url, args.model, args.timeout, args.prompt_version)
         predictions.append(pred)
-        print(f"{pred['id']}: {pred['predicted_type']:<10} | {pred['predicted_title']}")
+        print(f"{pred['id']}: {pred['predicted_type']:<10} | {pred['predicted_title']}", flush=True)
 
     payload = {
         "dataset": gold["dataset"],
@@ -172,7 +195,8 @@ def main() -> None:
         "notes": (
             "Staged LLM extraction directly from each source span. Consumes only the "
             "span text and declared source metadata; never the manual object set or "
-            "expected_* labels. Review priority is assigned application-side by type."
+            "expected_* labels. Review priority is assigned application-side by type. "
+            f"Prompt version: {args.prompt_version}."
         ),
         "predictions": predictions,
     }

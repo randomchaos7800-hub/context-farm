@@ -1,27 +1,27 @@
 {
   "dataset": "service-dispatch-extraction-gold-v0",
   "model_or_pipeline": "llm-staged-extractor-v0",
-  "notes": "Staged LLM extraction directly from each source span. Consumes only the span text and declared source metadata; never the manual object set or expected_* labels. Review priority is assigned application-side by type.",
+  "notes": "Staged LLM extraction directly from each source span. Consumes only the span text and declared source metadata; never the manual object set or expected_* labels. Review priority is assigned application-side by type. Prompt version: v0.",
   "predictions": [
     {
       "id": "sd-001",
-      "predicted_type": "Exception",
-      "predicted_title": "Deposit Requirement Exception",
-      "predicted_statement": "New clients must pay the standard deposit before scheduling can be finalized unless an approved exception exists.",
+      "predicted_type": "Constraint",
+      "predicted_title": "Deposit Requirement with Exception",
+      "predicted_statement": "New clients must pay the standard deposit before scheduling can be finalized, unless an approved exception applies.",
       "predicted_review_priority": "high"
     },
     {
       "id": "sd-002",
       "predicted_type": "Exception",
       "predicted_title": "After-hours scheduling exception",
-      "predicted_statement": "After\u2011hours scheduling normally requires operations lead approval, except for emergency priority incidents.",
+      "predicted_statement": "Emergency priority incidents bypass the requirement for operations lead approval for after\u2011hours scheduling.",
       "predicted_review_priority": "high"
     },
     {
       "id": "sd-003",
       "predicted_type": "Exception",
-      "predicted_title": "Emergency Override Approval",
-      "predicted_statement": "When active water damage, loss of heat, or another safety issue is present, dispatch may treat it as an emergency and bypass the normal after\u2011hours approval step.",
+      "predicted_title": "Emergency Override",
+      "predicted_statement": "Dispatch may treat active water damage, loss of heat, or other safety issues as emergencies and bypass the normal after\u2011hours approval step.",
       "predicted_review_priority": "high"
     },
     {
@@ -34,14 +34,14 @@
     {
       "id": "sd-005",
       "predicted_type": "Exception",
-      "predicted_title": "Exception verification and waiver recording",
-      "predicted_statement": "Before confirming the job, check for a documented exception and record the waiver reason in the job record.",
+      "predicted_title": "Exception verification and waiver logging",
+      "predicted_statement": "Before confirming a job, check if a documented exception applies and record the waiver reason in the job record.",
       "predicted_review_priority": "high"
     },
     {
       "id": "sd-006",
       "predicted_type": "Constraint",
-      "predicted_title": "Emergency dispatch requirement",
+      "predicted_title": "Emergency dispatch workflow",
       "predicted_statement": "Emergency dispatch must classify the incident and verify technician availability.",
       "predicted_review_priority": "high"
     },
@@ -56,28 +56,28 @@
       "id": "sd-008",
       "predicted_type": "Entity",
       "predicted_title": "VIP client list",
-      "predicted_statement": "The VIP client list is an internal roster of long\u2011term maintenance accounts that receive deposit flexibility and expedited handling.",
+      "predicted_statement": "The VIP client list comprises long\u2011term maintenance accounts that receive deposit flexibility and expedited handling.",
       "predicted_review_priority": "low"
     },
     {
       "id": "sd-009",
-      "predicted_type": "Decision",
-      "predicted_title": "Emergency Priority Scope",
-      "predicted_statement": "Emergency priority will apply only to active damage, safety hazards, or service outages that affect core habitability.",
+      "predicted_type": "Constraint",
+      "predicted_title": "Emergency priority limitation",
+      "predicted_statement": "Future emergency priority will only apply to active damage, safety hazards, or service outages that affect core habitability.",
       "predicted_review_priority": "high"
     },
     {
       "id": "sd-010",
       "predicted_type": "Constraint",
       "predicted_title": "Notify field lead when tech unavailable",
-      "predicted_statement": "The dispatcher must inform the field lead if no qualified technician is available for a same\u2011day emergency request.",
+      "predicted_statement": "The dispatcher must notify the field lead if no qualified technician is available for a same\u2011day emergency request.",
       "predicted_review_priority": "high"
     },
     {
       "id": "sd-011",
       "predicted_type": "Constraint",
-      "predicted_title": "Document deposit exceptions before scheduling",
-      "predicted_statement": "All deposit exceptions must be recorded in the job record prior to confirming scheduling.",
+      "predicted_title": "Document deposit exceptions",
+      "predicted_statement": "Deposit exceptions must be recorded in the job record prior to confirming scheduling.",
       "predicted_review_priority": "high"
     },
     {
@@ -86,6 +86,34 @@
       "predicted_title": "",
       "predicted_statement": "",
       "predicted_review_priority": "low"
+    },
+    {
+      "id": "sd-013",
+      "predicted_type": "Constraint",
+      "predicted_title": "Emergency Request Approval",
+      "predicted_statement": "If an emergency request lacks a qualified technician, field lead reassignment approval must be obtained before same\u2011day service can be promised.",
+      "predicted_review_priority": "high"
+    },
+    {
+      "id": "sd-014",
+      "predicted_type": "Constraint",
+      "predicted_title": "VIP Deposit Waiver Eligibility",
+      "predicted_statement": "VIP deposit waivers apply only to accounts that have an active maintenance plan, effective immediately.",
+      "predicted_review_priority": "high"
+    },
+    {
+      "id": "sd-015",
+      "predicted_type": "Procedure",
+      "predicted_title": "Emergency Criteria Check Before Approval",
+      "predicted_statement": "During after-hours intake, verify that the issue qualifies as an emergency before seeking operations lead approval.",
+      "predicted_review_priority": "medium"
+    },
+    {
+      "id": "sd-016",
+      "predicted_type": "Exception",
+      "predicted_title": "After\u2011hours call approval exception",
+      "predicted_statement": "After\u2011hours calls require operations lead approval unless the outage affects core habitability.",
+      "predicted_review_priority": "high"
     }
   ]
 }

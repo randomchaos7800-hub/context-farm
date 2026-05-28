@@ -177,6 +177,66 @@
       "expected_title": "",
       "expected_statement_contains": [],
       "expected_review_priority": "low"
+    },
+    {
+      "id": "sd-013",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "source_type": "text",
+      "authority_class": "official-sop",
+      "text": "Emergency requests with no qualified technician available require field lead reassignment approval before same-day service can be promised.",
+      "expected_type": "Constraint",
+      "expected_title": "Field lead reassignment required",
+      "expected_statement_contains": [
+        "no qualified technician available",
+        "field lead reassignment approval",
+        "before same-day service can be promised"
+      ],
+      "expected_review_priority": "high"
+    },
+    {
+      "id": "sd-014",
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "source_type": "operator_interview",
+      "authority_class": "manager-note",
+      "text": "Effective immediately, VIP deposit waivers are limited to accounts with an active maintenance plan.",
+      "expected_type": "Decision",
+      "expected_title": "VIP waiver eligibility narrowed",
+      "expected_statement_contains": [
+        "effective immediately",
+        "vip deposit waivers",
+        "active maintenance plan"
+      ],
+      "expected_review_priority": "high"
+    },
+    {
+      "id": "sd-015",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "source_type": "text",
+      "authority_class": "official-sop",
+      "text": "During after-hours intake, check whether the issue meets emergency criteria before requesting operations lead approval.",
+      "expected_type": "Procedure",
+      "expected_title": "After-hours emergency intake flow",
+      "expected_statement_contains": [
+        "after-hours intake",
+        "meets emergency criteria",
+        "before requesting operations lead approval"
+      ],
+      "expected_review_priority": "medium"
+    },
+    {
+      "id": "sd-016",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "source_type": "text",
+      "authority_class": "official-sop",
+      "text": "Unless the outage affects core habitability, after-hours calls still require operations lead approval.",
+      "expected_type": "Constraint",
+      "expected_title": "After-hours approval remains default",
+      "expected_statement_contains": [
+        "unless the outage affects core habitability",
+        "after-hours calls",
+        "operations lead approval"
+      ],
+      "expected_review_priority": "high"
     }
   ]
 }
