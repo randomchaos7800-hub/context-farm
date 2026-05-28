@@ -1,0 +1,113 @@
+{
+  "domain": {
+    "slug": "service-dispatch",
+    "title": "Service Dispatch",
+    "description": "Operational knowledge for a small home-services dispatch team covering scheduling, deposits, emergency jobs, client exceptions, and approval flows."
+  },
+  "authority_policy": [
+    {
+      "authority_class": "signed-policy",
+      "rank_order": 1,
+      "description": "Signed customer policy, contract addendum, or owner-approved written policy."
+    },
+    {
+      "authority_class": "official-sop",
+      "rank_order": 2,
+      "description": "Internal standard operating procedure or dispatch playbook."
+    },
+    {
+      "authority_class": "manager-note",
+      "rank_order": 3,
+      "description": "Written guidance from operations lead or department manager."
+    },
+    {
+      "authority_class": "operator-interview",
+      "rank_order": 4,
+      "description": "Interview-derived guidance from the lead dispatcher or founder."
+    },
+    {
+      "authority_class": "meeting-transcript",
+      "rank_order": 5,
+      "description": "Meeting notes or transcript references."
+    },
+    {
+      "authority_class": "informal-note",
+      "rank_order": 6,
+      "description": "Unstructured notes with no stronger authority."
+    }
+  ],
+  "schema": {
+    "entities": [
+      "client",
+      "job",
+      "technician",
+      "service-window",
+      "deposit",
+      "approval",
+      "emergency-request"
+    ],
+    "procedures": [
+      "job-intake",
+      "same-day-scheduling",
+      "after-hours-scheduling",
+      "deposit-waiver-flow",
+      "emergency-dispatch"
+    ],
+    "constraints": [
+      "minimum-deposit-required",
+      "after-hours-approval-required",
+      "technician-availability-limit",
+      "emergency-priority-override"
+    ],
+    "exceptions": [
+      "vip-client-deposit-waiver",
+      "emergency-after-hours-bypass"
+    ],
+    "decision_types": [
+      "pricing-exception",
+      "scheduling-override",
+      "manual-escalation"
+    ]
+  },
+  "sample_questions": [
+    "Can we waive the deposit for this emergency call?",
+    "Who needs to approve after-hours scheduling?",
+    "What is different for long-term maintenance clients?",
+    "When can emergency requests bypass normal scheduling rules?"
+  ],
+  "sample_objects": [
+    {
+      "object_uid": "constraint.service-dispatch.after-hours-approval-required",
+      "object_type": "Constraint",
+      "title": "After-hours approval required",
+      "canonical_statement": "After-hours scheduling requires operations lead approval unless the request is classified as emergency priority.",
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.95,
+      "authority_class": "official-sop",
+      "review_priority": "high"
+    },
+    {
+      "object_uid": "exception.service-dispatch.emergency-after-hours-bypass",
+      "object_type": "Exception",
+      "title": "Emergency after-hours bypass",
+      "canonical_statement": "Emergency requests may bypass normal after-hours approval if safety, active damage, or service outage criteria are met.",
+      "status": "draft",
+      "freshness_state": "current",
+      "confidence_score": 0.87,
+      "authority_class": "operator-interview",
+      "review_priority": "high"
+    },
+    {
+      "object_uid": "procedure.service-dispatch.deposit-waiver-flow",
+      "object_type": "Procedure",
+      "title": "Deposit waiver flow",
+      "canonical_statement": "Deposit waivers require checking client category, emergency status, and approval path before scheduling confirmation.",
+      "status": "draft",
+      "freshness_state": "unknown",
+      "confidence_score": 0.84,
+      "authority_class": "manager-note",
+      "review_priority": "medium"
+    }
+  ]
+}

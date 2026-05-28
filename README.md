@@ -109,9 +109,16 @@ What is being specified and built next:
 - [Product Spec v0](./PRODUCT_SPEC_V0.md)
 - [Architecture Spec v0](./ARCHITECTURE_SPEC_V0.md)
 - [MVP Roadmap](./ROADMAP_MVP.md)
+- [Structured Object Schema v0](./STRUCTURED_OBJECT_SCHEMA_V0.md)
 - [Pitch v0](./PITCH_V0.md)
 - [Landing Page Copy v0](./LANDING_PAGE_COPY_V0.md)
 - [Demo Scenarios v0](./DEMO_SCENARIOS_V0.md)
+
+## Milestone 1 Artifacts
+
+- initial SQLite schema: [sql/0001_init_structured_store.sql](./sql/0001_init_structured_store.sql)
+- first structured object contract: [STRUCTURED_OBJECT_SCHEMA_V0.md](./STRUCTURED_OBJECT_SCHEMA_V0.md)
+- first demo domain seed: [examples/domain-service-dispatch.json](./examples/domain-service-dispatch.json)
 
 ## Intended Users
 
