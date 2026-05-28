@@ -1,0 +1,14 @@
+{
+  "dataset": "service-dispatch-extraction-gold-v0",
+  "model_or_pipeline": "replace-me",
+  "notes": "Copy this file and fill one prediction per gold item.",
+  "predictions": [
+    {
+      "id": "sd-001",
+      "predicted_type": "Constraint",
+      "predicted_title": "Minimum deposit required",
+      "predicted_statement": "New clients must pay the standard deposit before scheduling can be finalized unless an approved exception exists.",
+      "predicted_review_priority": "high"
+    }
+  ]
+}

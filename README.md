@@ -111,6 +111,7 @@ What is being specified and built next:
 - [MVP Roadmap](./ROADMAP_MVP.md)
 - [Structured Object Schema v0](./STRUCTURED_OBJECT_SCHEMA_V0.md)
 - [Extraction Design v0](./EXTRACTION_DESIGN_V0.md)
+- [Extraction Eval v0](./EXTRACTION_EVAL_V0.md)
 - [Demo Implementation v0](./DEMO_IMPLEMENTATION_V0.md)
 - [Pitch v0](./PITCH_V0.md)
 - [Landing Page Copy v0](./LANDING_PAGE_COPY_V0.md)
@@ -123,6 +124,7 @@ What is being specified and built next:
 - first demo domain seed: [examples/domain-service-dispatch.json](./examples/domain-service-dispatch.json)
 - manual demo object set: [examples/service-dispatch-manual-objects.json](./examples/service-dispatch-manual-objects.json)
 - prototype scripts: [scripts/build_demo_db.py](./scripts/build_demo_db.py), [scripts/query_demo.py](./scripts/query_demo.py), [scripts/brief_demo.py](./scripts/brief_demo.py)
+- extraction gold set and evaluator: [examples/service-dispatch-extraction-gold.json](./examples/service-dispatch-extraction-gold.json), [scripts/eval_extraction.py](./scripts/eval_extraction.py)
 
 ## Intended Users
 

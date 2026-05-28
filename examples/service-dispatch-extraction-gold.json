@@ -1,0 +1,182 @@
+{
+  "dataset": "service-dispatch-extraction-gold-v0",
+  "domain_slug": "service-dispatch",
+  "description": "Labeled extraction examples for Context Farm v0. Built to evaluate staged extraction against the manual service-dispatch demo domain.",
+  "label_schema_version": "v0",
+  "items": [
+    {
+      "id": "sd-001",
+      "source_uid": "source.service-dispatch.policy-deposit-2026",
+      "source_type": "pdf",
+      "authority_class": "signed-policy",
+      "text": "New clients must pay the standard deposit before scheduling can be finalized unless an approved exception exists.",
+      "expected_type": "Constraint",
+      "expected_title": "Minimum deposit required",
+      "expected_statement_contains": [
+        "new clients",
+        "standard deposit",
+        "unless an approved exception exists"
+      ],
+      "expected_review_priority": "high"
+    },
+    {
+      "id": "sd-002",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "source_type": "text",
+      "authority_class": "official-sop",
+      "text": "After-hours scheduling requires operations lead approval except for emergency priority incidents.",
+      "expected_type": "Constraint",
+      "expected_title": "After-hours approval required",
+      "expected_statement_contains": [
+        "after-hours scheduling",
+        "operations lead approval",
+        "except for emergency priority"
+      ],
+      "expected_review_priority": "high"
+    },
+    {
+      "id": "sd-003",
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "source_type": "operator_interview",
+      "authority_class": "operator-interview",
+      "text": "If there is active water damage, loss of heat, or another safety issue, dispatch can treat it as an emergency and skip the normal after-hours approval step.",
+      "expected_type": "Exception",
+      "expected_title": "Emergency after-hours bypass",
+      "expected_statement_contains": [
+        "active water damage",
+        "loss of heat",
+        "skip the normal after-hours approval step"
+      ],
+      "expected_review_priority": "high"
+    },
+    {
+      "id": "sd-004",
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "source_type": "operator_interview",
+      "authority_class": "operator-interview",
+      "text": "VIP maintenance clients can usually skip the standard deposit if the dispatcher verifies the account and notes the reason.",
+      "expected_type": "Exception",
+      "expected_title": "VIP client deposit waiver",
+      "expected_statement_contains": [
+        "vip maintenance clients",
+        "skip the standard deposit",
+        "dispatcher verifies the account"
+      ],
+      "expected_review_priority": "high"
+    },
+    {
+      "id": "sd-005",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "source_type": "text",
+      "authority_class": "official-sop",
+      "text": "Before confirming the job, verify whether a documented exception applies and record the waiver reason in the job record.",
+      "expected_type": "Procedure",
+      "expected_title": "Deposit waiver flow",
+      "expected_statement_contains": [
+        "documented exception applies",
+        "record the waiver reason",
+        "job record"
+      ],
+      "expected_review_priority": "medium"
+    },
+    {
+      "id": "sd-006",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "source_type": "text",
+      "authority_class": "official-sop",
+      "text": "Emergency dispatch requires classification of the incident and a technician availability check.",
+      "expected_type": "Procedure",
+      "expected_title": "Emergency dispatch flow",
+      "expected_statement_contains": [
+        "classification of the incident",
+        "technician availability check"
+      ],
+      "expected_review_priority": "medium"
+    },
+    {
+      "id": "sd-007",
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "source_type": "operator_interview",
+      "authority_class": "operator-interview",
+      "text": "Long-term maintenance clients can usually be recognized by an active maintenance plan and at least one completed service visit in the last year.",
+      "expected_type": "Fact",
+      "expected_title": "Long-term maintenance client definition",
+      "expected_statement_contains": [
+        "active maintenance plan",
+        "completed service visit in the last year"
+      ],
+      "expected_review_priority": "low"
+    },
+    {
+      "id": "sd-008",
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "source_type": "operator_interview",
+      "authority_class": "operator-interview",
+      "text": "The VIP client list is the internal roster of long-term maintenance accounts that receive deposit flexibility and expedited handling.",
+      "expected_type": "Entity",
+      "expected_title": "VIP client list",
+      "expected_statement_contains": [
+        "internal roster",
+        "deposit flexibility",
+        "expedited handling"
+      ],
+      "expected_review_priority": "low"
+    },
+    {
+      "id": "sd-009",
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "source_type": "operator_interview",
+      "authority_class": "manager-note",
+      "text": "Going forward, emergency priority is limited to active damage, safety hazards, or service outages affecting core habitability.",
+      "expected_type": "Decision",
+      "expected_title": "Emergency priority definition",
+      "expected_statement_contains": [
+        "going forward",
+        "active damage",
+        "service outages affecting core habitability"
+      ],
+      "expected_review_priority": "high"
+    },
+    {
+      "id": "sd-010",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "source_type": "text",
+      "authority_class": "official-sop",
+      "text": "The dispatcher should notify the field lead if no qualified technician is free for a same-day emergency request.",
+      "expected_type": "Procedure",
+      "expected_title": "Emergency dispatch flow",
+      "expected_statement_contains": [
+        "notify the field lead",
+        "no qualified technician is free",
+        "same-day emergency request"
+      ],
+      "expected_review_priority": "medium"
+    },
+    {
+      "id": "sd-011",
+      "source_uid": "source.service-dispatch.policy-deposit-2026",
+      "source_type": "pdf",
+      "authority_class": "signed-policy",
+      "text": "All deposit exceptions must be documented in the job record before scheduling is confirmed.",
+      "expected_type": "Constraint",
+      "expected_title": "Deposit exception documentation required",
+      "expected_statement_contains": [
+        "deposit exceptions",
+        "documented in the job record",
+        "before scheduling is confirmed"
+      ],
+      "expected_review_priority": "high"
+    },
+    {
+      "id": "sd-012",
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "source_type": "operator_interview",
+      "authority_class": "operator-interview",
+      "text": "The weather was brutal last week and everybody was exhausted by Friday.",
+      "expected_type": "Reject",
+      "expected_title": "",
+      "expected_statement_contains": [],
+      "expected_review_priority": "low"
+    }
+  ]
+}
