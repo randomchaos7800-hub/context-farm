@@ -13,7 +13,9 @@ The point is to stop talking about extraction quality abstractly and start measu
 
 - gold set: [examples/service-dispatch-extraction-gold.json](./examples/service-dispatch-extraction-gold.json)
 - prediction template: [examples/service-dispatch-extraction-predictions.template.json](./examples/service-dispatch-extraction-predictions.template.json)
+- manual baseline predictions: [examples/service-dispatch-extraction-predictions.manual-baseline.json](./examples/service-dispatch-extraction-predictions.manual-baseline.json)
 - evaluator: [scripts/eval_extraction.py](./scripts/eval_extraction.py)
+- baseline generator: [scripts/generate_manual_baseline_predictions.py](./scripts/generate_manual_baseline_predictions.py)
 
 ## Scope
 
@@ -43,6 +45,15 @@ cp examples/service-dispatch-extraction-predictions.template.json /tmp/preds.jso
 python3 scripts/eval_extraction.py --predictions /tmp/preds.json
 ```
 
+Generate the current manual baseline:
+
+```bash
+cd /home/dino/context-farm-repo
+python3 scripts/generate_manual_baseline_predictions.py
+python3 scripts/eval_extraction.py \
+  --predictions examples/service-dispatch-extraction-predictions.manual-baseline.json
+```
+
 ## Metrics
 
 The evaluator reports:
@@ -54,6 +65,23 @@ The evaluator reports:
 - review-priority accuracy
 
 This is intentionally simple. It is meant to be the first extraction scoreboard, not the final one.
+
+## Current Baseline
+
+Current baseline pipeline: `manual-object-overlap-baseline`
+
+Current score on `service-dispatch-extraction-gold-v0`:
+
+- coverage: `100.0%`
+- type accuracy: `100.0%`
+- title accuracy: `91.7%`
+- statement coverage: `83.3%`
+- review-priority accuracy: `100.0%`
+
+Known misses:
+
+- `sd-010`: the current baseline picks the right procedure object, but does not yet surface the alternate same procedure sentence about notifying the field lead.
+- `sd-011`: the manual object set does not yet include a dedicated `Deposit exception documentation required` constraint, so the baseline falls back to the closest existing deposit constraint.
 
 ## Why This Matters
 
@@ -69,4 +97,4 @@ This artifact is the first answer to that problem.
 
 ## Next Step
 
-The next meaningful implementation step is to generate a first real prediction file from a staged extraction prompt and run it against this gold set. That will tell us whether the extraction design is only plausible on paper or starting to work in code.
+The next meaningful implementation step is to replace the manual baseline with a staged extraction pass that predicts directly from source text, then compare that output against the same gold set. That will tell us whether the extraction design is only plausible on paper or starting to work in code.
