@@ -108,6 +108,7 @@ What is being specified and built next:
 
 - [Product Spec v0](./PRODUCT_SPEC_V0.md)
 - [Architecture Spec v0](./ARCHITECTURE_SPEC_V0.md)
+- [MVP Roadmap](./ROADMAP_MVP.md)
 - [Pitch v0](./PITCH_V0.md)
 - [Landing Page Copy v0](./LANDING_PAGE_COPY_V0.md)
 - [Demo Scenarios v0](./DEMO_SCENARIOS_V0.md)
