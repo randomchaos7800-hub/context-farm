@@ -111,6 +111,7 @@ What is being specified and built next:
 - [MVP Roadmap](./ROADMAP_MVP.md)
 - [Structured Object Schema v0](./STRUCTURED_OBJECT_SCHEMA_V0.md)
 - [Extraction Design v0](./EXTRACTION_DESIGN_V0.md)
+- [Demo Implementation v0](./DEMO_IMPLEMENTATION_V0.md)
 - [Pitch v0](./PITCH_V0.md)
 - [Landing Page Copy v0](./LANDING_PAGE_COPY_V0.md)
 - [Demo Scenarios v0](./DEMO_SCENARIOS_V0.md)
@@ -120,6 +121,8 @@ What is being specified and built next:
 - initial SQLite schema: [sql/0001_init_structured_store.sql](./sql/0001_init_structured_store.sql)
 - first structured object contract: [STRUCTURED_OBJECT_SCHEMA_V0.md](./STRUCTURED_OBJECT_SCHEMA_V0.md)
 - first demo domain seed: [examples/domain-service-dispatch.json](./examples/domain-service-dispatch.json)
+- manual demo object set: [examples/service-dispatch-manual-objects.json](./examples/service-dispatch-manual-objects.json)
+- prototype scripts: [scripts/build_demo_db.py](./scripts/build_demo_db.py), [scripts/query_demo.py](./scripts/query_demo.py), [scripts/brief_demo.py](./scripts/brief_demo.py)
 
 ## Intended Users
 

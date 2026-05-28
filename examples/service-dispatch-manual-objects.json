@@ -1,0 +1,299 @@
+{
+  "sources": [
+    {
+      "source_uid": "source.service-dispatch.policy-deposit-2026",
+      "source_type": "pdf",
+      "title": "Deposit Policy 2026",
+      "original_uri": "file://policies/deposit-policy-2026.pdf",
+      "raw_path": "raw/service-dispatch/deposit-policy-2026.md",
+      "checksum": "sha256:demo-deposit-policy-2026",
+      "authority_class": "signed-policy",
+      "authority_assignment_method": "declared",
+      "ingested_by": "demo-seed",
+      "ingested_at": "2026-05-28T12:00:00Z",
+      "metadata_json": {
+        "pages": [3, 4],
+        "owner": "operations"
+      }
+    },
+    {
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "source_type": "text",
+      "title": "Dispatch SOP: After-Hours Scheduling",
+      "original_uri": "",
+      "raw_path": "raw/service-dispatch/after-hours-sop.md",
+      "checksum": "sha256:demo-after-hours-sop",
+      "authority_class": "official-sop",
+      "authority_assignment_method": "declared",
+      "ingested_by": "demo-seed",
+      "ingested_at": "2026-05-28T12:03:00Z",
+      "metadata_json": {
+        "owner": "dispatch"
+      }
+    },
+    {
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "source_type": "operator_interview",
+      "title": "Ops Lead Interview: Emergency and VIP Exceptions",
+      "original_uri": "",
+      "raw_path": "raw/service-dispatch/ops-interview-001.md",
+      "checksum": "sha256:demo-ops-interview-001",
+      "authority_class": "operator-interview",
+      "authority_assignment_method": "declared",
+      "ingested_by": "demo-seed",
+      "ingested_at": "2026-05-28T12:08:00Z",
+      "metadata_json": {
+        "interviewee_role": "ops-lead"
+      }
+    }
+  ],
+  "objects": [
+    {
+      "object_uid": "constraint.service-dispatch.minimum-deposit-required",
+      "object_type": "Constraint",
+      "title": "Minimum deposit required",
+      "canonical_statement": "New clients must pay the standard deposit before scheduling is confirmed unless a documented exception applies.",
+      "body_json": {
+        "applies_to": ["procedure.service-dispatch.job-intake"],
+        "thresholds": ["client_status=new"],
+        "enforcement": "block scheduling confirmation until deposit is collected or waived"
+      },
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.98,
+      "authority_class": "signed-policy",
+      "review_priority": "high",
+      "source_count": 1
+    },
+    {
+      "object_uid": "constraint.service-dispatch.after-hours-approval-required",
+      "object_type": "Constraint",
+      "title": "After-hours approval required",
+      "canonical_statement": "After-hours scheduling requires operations lead approval unless the request qualifies as emergency priority.",
+      "body_json": {
+        "applies_to": ["procedure.service-dispatch.after-hours-scheduling"],
+        "thresholds": ["after_hours=true"],
+        "approver_roles": ["ops-lead"]
+      },
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.95,
+      "authority_class": "official-sop",
+      "review_priority": "high",
+      "source_count": 2
+    },
+    {
+      "object_uid": "constraint.service-dispatch.technician-availability-limit",
+      "object_type": "Constraint",
+      "title": "Technician availability limit",
+      "canonical_statement": "Same-day emergency dispatch may only be scheduled if an on-call technician is available or a field lead approves reassignment.",
+      "body_json": {
+        "applies_to": ["procedure.service-dispatch.emergency-dispatch"],
+        "conditions": ["priority=emergency"],
+        "enforcement": "require on-call availability or manual reassignment approval"
+      },
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.91,
+      "authority_class": "official-sop",
+      "review_priority": "high",
+      "source_count": 1
+    },
+    {
+      "object_uid": "exception.service-dispatch.emergency-after-hours-bypass",
+      "object_type": "Exception",
+      "title": "Emergency after-hours bypass",
+      "canonical_statement": "Emergency requests may bypass normal after-hours approval if there is active water damage, loss of heat, or a safety hazard.",
+      "body_json": {
+        "exception_to": ["constraint.service-dispatch.after-hours-approval-required"],
+        "conditions": ["active water damage", "loss of heat", "safety hazard"],
+        "scope": "emergency-only"
+      },
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.89,
+      "authority_class": "operator-interview",
+      "review_priority": "high",
+      "source_count": 1
+    },
+    {
+      "object_uid": "exception.service-dispatch.vip-client-deposit-waiver",
+      "object_type": "Exception",
+      "title": "VIP client deposit waiver",
+      "canonical_statement": "Long-term maintenance clients on the VIP list may have the standard deposit waived with dispatcher confirmation and account verification.",
+      "body_json": {
+        "exception_to": ["constraint.service-dispatch.minimum-deposit-required"],
+        "conditions": ["client_class=vip", "maintenance_plan=active"],
+        "approver_roles": ["dispatcher"]
+      },
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.86,
+      "authority_class": "operator-interview",
+      "review_priority": "high",
+      "source_count": 1
+    },
+    {
+      "object_uid": "procedure.service-dispatch.deposit-waiver-flow",
+      "object_type": "Procedure",
+      "title": "Deposit waiver flow",
+      "canonical_statement": "Deposit waiver review requires checking client class, confirming exception eligibility, and recording the waiver reason before scheduling confirmation.",
+      "body_json": {
+        "steps": [
+          "check whether the client is new or existing",
+          "verify whether a documented exception applies",
+          "record the waiver reason in the job record",
+          "confirm scheduling only after the waiver path is satisfied"
+        ],
+        "roles": ["dispatcher", "ops-lead"]
+      },
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.9,
+      "authority_class": "official-sop",
+      "review_priority": "medium",
+      "source_count": 2
+    },
+    {
+      "object_uid": "procedure.service-dispatch.emergency-dispatch",
+      "object_type": "Procedure",
+      "title": "Emergency dispatch flow",
+      "canonical_statement": "Emergency dispatch requires classification of the incident, technician availability check, and escalation if no qualified technician is free.",
+      "body_json": {
+        "steps": [
+          "classify whether the request meets emergency criteria",
+          "check on-call technician availability",
+          "if no technician is free, escalate to field lead for reassignment",
+          "record the reason for emergency classification"
+        ],
+        "roles": ["dispatcher", "field-lead"]
+      },
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.9,
+      "authority_class": "official-sop",
+      "review_priority": "medium",
+      "source_count": 2
+    },
+    {
+      "object_uid": "decision.service-dispatch.emergency-priority-definition",
+      "object_type": "Decision",
+      "title": "Emergency priority definition",
+      "canonical_statement": "Emergency priority is limited to active damage, safety hazards, or service outages affecting core habitability.",
+      "body_json": {
+        "decision": "limit emergency classification",
+        "rationale": "prevent same-day queue abuse and preserve technician availability",
+        "decision_maker": "ops-lead"
+      },
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.84,
+      "authority_class": "manager-note",
+      "review_priority": "high",
+      "source_count": 1
+    },
+    {
+      "object_uid": "fact.service-dispatch.long-term-maintenance-client",
+      "object_type": "Fact",
+      "title": "Long-term maintenance client definition",
+      "canonical_statement": "A long-term maintenance client is an account with an active maintenance plan and at least one completed service visit in the last 12 months.",
+      "body_json": {
+        "subject": "client",
+        "predicate": "qualifies_as",
+        "object": "long-term maintenance client"
+      },
+      "status": "approved",
+      "freshness_state": "current",
+      "confidence_score": 0.88,
+      "authority_class": "manager-note",
+      "review_priority": "low",
+      "source_count": 1
+    },
+    {
+      "object_uid": "entity.service-dispatch.vip-client-list",
+      "object_type": "Entity",
+      "title": "VIP client list",
+      "canonical_statement": "The VIP client list is the internal roster of long-term maintenance accounts eligible for expedited handling and deposit flexibility.",
+      "body_json": {
+        "entity_type": "client-list",
+        "aliases": ["priority clients", "vip maintenance list"]
+      },
+      "status": "approved",
+      "freshness_state": "needs_review",
+      "confidence_score": 0.78,
+      "authority_class": "manager-note",
+      "review_priority": "low",
+      "source_count": 1
+    }
+  ],
+  "links": [
+    {
+      "from_object_uid": "exception.service-dispatch.emergency-after-hours-bypass",
+      "to_object_uid": "constraint.service-dispatch.after-hours-approval-required",
+      "link_type": "exception_to"
+    },
+    {
+      "from_object_uid": "exception.service-dispatch.vip-client-deposit-waiver",
+      "to_object_uid": "constraint.service-dispatch.minimum-deposit-required",
+      "link_type": "exception_to"
+    },
+    {
+      "from_object_uid": "procedure.service-dispatch.deposit-waiver-flow",
+      "to_object_uid": "constraint.service-dispatch.minimum-deposit-required",
+      "link_type": "references"
+    },
+    {
+      "from_object_uid": "procedure.service-dispatch.deposit-waiver-flow",
+      "to_object_uid": "exception.service-dispatch.vip-client-deposit-waiver",
+      "link_type": "references"
+    },
+    {
+      "from_object_uid": "procedure.service-dispatch.emergency-dispatch",
+      "to_object_uid": "constraint.service-dispatch.technician-availability-limit",
+      "link_type": "references"
+    },
+    {
+      "from_object_uid": "decision.service-dispatch.emergency-priority-definition",
+      "to_object_uid": "exception.service-dispatch.emergency-after-hours-bypass",
+      "link_type": "references"
+    }
+  ],
+  "object_sources": [
+    {
+      "object_uid": "constraint.service-dispatch.minimum-deposit-required",
+      "source_uid": "source.service-dispatch.policy-deposit-2026",
+      "evidence_text": "New clients must pay the standard deposit before scheduling can be finalized unless an approved exception exists.",
+      "evidence_location": "page:3"
+    },
+    {
+      "object_uid": "constraint.service-dispatch.after-hours-approval-required",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "evidence_text": "After-hours scheduling requires operations lead approval except for emergency priority incidents.",
+      "evidence_location": "section:approval"
+    },
+    {
+      "object_uid": "exception.service-dispatch.emergency-after-hours-bypass",
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "evidence_text": "If there is active water damage, loss of heat, or another safety issue, dispatch can treat it as an emergency and skip the normal after-hours approval step.",
+      "evidence_location": "paragraph:2"
+    },
+    {
+      "object_uid": "exception.service-dispatch.vip-client-deposit-waiver",
+      "source_uid": "source.service-dispatch.ops-interview-001",
+      "evidence_text": "VIP maintenance clients can usually skip the standard deposit if the dispatcher verifies the account and notes the reason.",
+      "evidence_location": "paragraph:4"
+    },
+    {
+      "object_uid": "procedure.service-dispatch.deposit-waiver-flow",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "evidence_text": "Before confirming the job, verify whether a documented exception applies and record the waiver reason in the job record.",
+      "evidence_location": "section:deposit-waiver"
+    },
+    {
+      "object_uid": "procedure.service-dispatch.emergency-dispatch",
+      "source_uid": "source.service-dispatch.sop-after-hours",
+      "evidence_text": "Emergency dispatch requires classification of the incident and a technician availability check.",
+      "evidence_location": "section:emergency-dispatch"
+    }
+  ]
+}
